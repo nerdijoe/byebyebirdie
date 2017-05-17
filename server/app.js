@@ -5,6 +5,16 @@ var index = require('./routes/index')
 
 var app = express();
 
+var mongoose = require('mongoose');
+var mongodbConfig = {
+  development: 'mongodb://localhost/byebyebirdie_dev',
+  test: 'mongodb://localhost/byebyebirdie_test'
+}
+
+var app_env = app.settings.env;
+mongoose.connect( mongodbConfig[app_env], (err, res) => {
+  console.log('connected to DB: ' + mongodbConfig[app_env])
+})
 
 app.use('/', index);
 
