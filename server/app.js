@@ -2,6 +2,7 @@ var express = require('express');
 // var bodyParser = require('body-parser');
 
 var index = require('./routes/index')
+var users = require('./routes/users')
 
 var app = express();
 
@@ -17,6 +18,7 @@ mongoose.connect( mongodbConfig[app_env], (err, res) => {
 })
 
 app.use('/', index);
+app.use('/api/users/', users);
 
 const port = 3000;
 app.listen( port, () => {
