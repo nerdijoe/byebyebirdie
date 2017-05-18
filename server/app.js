@@ -8,6 +8,7 @@ var User = require('./models/user')
 
 var index = require('./routes/index')
 var users = require('./routes/users')
+var twits = require('./routes/twits')
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(cors())
 
 app.use('/', index);
 app.use('/api/users', users);
+app.use('/api/twits', twits);
 
 const port = 3000;
 app.listen( port, () => {
