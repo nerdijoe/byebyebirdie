@@ -1,8 +1,14 @@
 <template>
   <div class="ui secondary  menu">
-    <a class="active item">
-      Home
-    </a>
+    <router-link
+        to="/"
+        class="ui item"
+        active-class="active"
+        exact
+      >
+        Home
+    </router-link>
+
     <a class="item">
       Friends
     </a>
@@ -13,9 +19,18 @@
           <i class="search link icon"></i>
         </div>
       </div>
-      <a class="ui item">
-        Sign in
-      </a>
+
+      <router-link
+
+          to="signin"
+          class="ui item"
+          active-class="active"
+          exact
+        >
+          Sign in
+      </router-link>
+
+
       <a class="ui item">
         Sign up
       </a>
