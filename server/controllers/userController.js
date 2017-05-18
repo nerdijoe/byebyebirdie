@@ -31,7 +31,16 @@ exports.signIn = (req, res, next) => {
     { expiresIn: '1h'}
   );
 
-  res.send(token)
+  var userObj = {
+    _id: user.id,
+    name: user.name,
+    username: user.username,
+    token: token
+  }
+
+  console.log('return this userObj', userObj)
+
+  res.send(userObj)
 }
 
 exports.getAll = (req, res, next) => {
