@@ -17,6 +17,14 @@ export default {
   name: 'app',
   components: {
     Navbar
+  },
+  methods: {
+    ...mapActions([
+      'checkLoginStatus'
+    ])
+  },
+  created() {
+    this.checkLoginStatus()
   }
 }
 </script>

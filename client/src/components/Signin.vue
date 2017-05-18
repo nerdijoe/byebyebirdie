@@ -4,7 +4,7 @@
   <div class="ui one column stackable center aligned page grid">
      <div class="column twelve wide">
        <h1> Sign in</h1>
-       <form class="ui huge form" v-on:submit="userSignin" >
+       <form class="ui huge form" v-on:submit.prevent="submitSignin" >
            <div class="field">
              <input type="text" name="username" v-model="user_form.username" placeholder="Username">
            </div>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -37,8 +39,12 @@ export default {
     }
   },
   methods: {
-    userSignin() {
+    ...mapActions([
+      'userSignin'
+    ]),
+    submitSignin() {
       console.log('userSignin')
+      this.userSignin(this.user_form)
     }
   }
 }

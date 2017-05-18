@@ -21,7 +21,7 @@
       </div>
 
       <router-link
-
+          v-if="!is_login"
           to="signin"
           class="ui item"
           active-class="active"
@@ -43,7 +43,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
+  computed: mapGetters({
+    is_login: 'getLoginStatus'
+  })
 }
 </script>
 
