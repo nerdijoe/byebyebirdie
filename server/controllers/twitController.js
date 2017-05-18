@@ -3,10 +3,11 @@ var Tag = require('../models/tag')
 
 
 exports.create = (req, res, next) => {
+  let user = req.decoded;
 
   var newTwit = new Twit({
     text: req.body.text,
-    user: req.body.user,
+    user: user._id,
     tags: []
   })
 
@@ -37,6 +38,7 @@ exports.getAll = (req, res, next) => {
   Twit.find()
   .sort({created_at: -1})
   .populate("user")
+  .sort({created_at: -1})
   .exec( (err, twits) => {
     if(err) res.send(err);
     else{

@@ -20,11 +20,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'checkLoginStatus'
+      'checkLoginStatus',
+      'fetchTwits'
     ])
   },
   created() {
     this.checkLoginStatus()
+    this.fetchTwits()
   }
 }
 </script>

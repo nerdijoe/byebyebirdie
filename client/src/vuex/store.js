@@ -12,7 +12,8 @@ const store = new Vuex.Store({
       name: '',
       username: ''
     },
-    is_login: false
+    is_login: false,
+    twits: []
   },
   getters: {
     getMessage(state) {
@@ -23,6 +24,9 @@ const store = new Vuex.Store({
     },
     getUserInfo(state) {
       return state.user
+    },
+    getTwits(state) {
+      return state.twits
     }
   },
   mutations: {
@@ -43,8 +47,11 @@ const store = new Vuex.Store({
       state.is_login = true
 
       console.log('setUserfromLocalStorage', state.user);
+    },
+    setTwitsfromDB(state, data) {
+      state.twits = data
     }
-  },
+  }, // end of mutations
   actions: {
     userSignin({commit}, user) {
       axios.post('http://localhost:3000/api/users/signin', {
@@ -77,6 +84,16 @@ const store = new Vuex.Store({
       if(localStorage.token != null) {
         commit('setUserfromLocalStorage')
       }
+    },
+    fetchTwits({commit}) {
+
+      axios.get('http://localhost:3000/api/twits')
+      .then( response => {
+        console.log("*** fetchTwits")
+        console.log(response.data)
+
+        commit('setTwitsfromDB', response.data)
+      })
     }
   }
 

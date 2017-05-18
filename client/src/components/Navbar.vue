@@ -35,7 +35,7 @@
         Sign up
       </a>
 
-      <a class="ui item">
+      <a class="ui item" @click="signOut">
         Sign out
       </a>
     </div>
@@ -48,7 +48,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: mapGetters({
     is_login: 'getLoginStatus'
-  })
+  }),
+  methods: {
+    signOut() {
+      console.log("signOut")
+      
+    }
+  }
 }
 </script>
 
