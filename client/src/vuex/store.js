@@ -20,7 +20,9 @@ var config = {
 var firebaseApp = firebase.initializeApp(config);
 var db = firebaseApp.database()
 
-function writePostData(secretKey, post_id) {
+const firebaseSecret= 'byebyebirdie'
+
+function writePostData(secretKey, twit_id) {
   firebase.database().ref('twits/' + secretKey).set({
     twit_id: twit_id
   });
@@ -36,8 +38,7 @@ const store = new Vuex.Store({
       username: ''
     },
     is_login: false,
-    twits: [],
-    firebaseSecret: 'byebyebirdie'
+    twits: []
   },
   getters: {
     getMessage(state) {
@@ -61,6 +62,10 @@ const store = new Vuex.Store({
       state.user = data
       state.is_login = true
       console.log("mut setUser", state.user)
+    },
+    clearLogin(state) {
+      state.user = {_id: '', name: '', username: ''}
+      state.is_login = false
     },
     setUserfromLocalStorage(state) {
       state.user._id = localStorage._id
@@ -103,6 +108,14 @@ const store = new Vuex.Store({
         console.log(err)
       })
     },
+    userSignout({commit}) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('_id');
+      localStorage.removeItem('name');
+      localStorage.removeItem('username');
+
+      commit('clearLogin')      
+    },
     checkLoginStatus({commit}, user) {
       // check localStorage
       // if exist, then set user info, etc
@@ -133,14 +146,35 @@ const store = new Vuex.Store({
       .then(response => {
         console.log(response.data)
         commit('addNewTwit', response.data)
+
+        writePostData(firebaseSecret, response.data._id)
+
       })
       .catch(err => {
         console.log(err)
       })
+    },
+    firebaseListen({dispatch}) {
+      let self = this;
+      var listenToPost = firebase.database().ref('twits/' + firebaseSecret );
+      listenToPost.on('value', function(snapshot) {
+        // updateStarCount(postElement, snapshot.val());
+        console.log("listen: ", snapshot.val());
+        // app.changes(snapshot.val().post_id);
+        // self.listItems()
+        // do something
+
+        dispatch('fetchTwits')
+        
+        firebase.database().ref('twits/'+firebaseSecret).remove();
+
+      });
     }
   }
 
 }) // end of store
+
+
 
 
 

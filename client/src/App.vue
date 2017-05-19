@@ -21,12 +21,16 @@ export default {
   methods: {
     ...mapActions([
       'checkLoginStatus',
-      'fetchTwits'
+      'fetchTwits',
+      'firebaseListen'
     ])
   },
   created() {
     this.checkLoginStatus()
     this.fetchTwits()
+
+    this.firebaseListen()
+
   }
 }
 </script>

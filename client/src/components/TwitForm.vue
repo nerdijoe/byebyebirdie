@@ -2,14 +2,14 @@
 	
 <div>
 	
-<form class="ui form" v-on:submit.prevent="submitTwitForm">
+<form class="ui huge form" v-on:submit.prevent="submitTwitForm">
   <div class="fields">
-    <div class="eight wide field">
-      <input type="text" placeholder="Your Twit.." v-model="twitForm.text">
+    <div class="sixteen wide field">
+      <input type="text" placeholder="What's happening?" v-model="twitForm.text">
     </div>
 
     <div class="five wide field">
-    	<button class="ui violet basic submit button" type="submit">Post</button>
+    	<button class="ui violet basic huge submit button" type="submit">Post</button>
     </div>
 
   </div>
