@@ -36,7 +36,8 @@ const store = new Vuex.Store({
       username: ''
     },
     is_login: false,
-    twits: []
+    twits: [],
+    firebaseSecret: 'byebyebirdie'
   },
   getters: {
     getMessage(state) {
@@ -140,5 +141,7 @@ const store = new Vuex.Store({
   }
 
 }) // end of store
+
+
 
 export default store
