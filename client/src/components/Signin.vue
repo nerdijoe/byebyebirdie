@@ -45,6 +45,7 @@ export default {
     submitSignin() {
       console.log('userSignin')
       this.userSignin(this.user_form)
+      this.$router.push('/')
     }
   }
 }

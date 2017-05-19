@@ -50,6 +50,9 @@ const store = new Vuex.Store({
     },
     setTwitsfromDB(state, data) {
       state.twits = data
+    },
+    addNewTwit(state, data) {
+      state.twits.unshift(data)
     }
   }, // end of mutations
   actions: {
@@ -93,6 +96,22 @@ const store = new Vuex.Store({
         console.log(response.data)
 
         commit('setTwitsfromDB', response.data)
+      })
+    },
+    postTwit({commit}, twit) {
+      console.log('postTwit')
+
+      axios.post('http://localhost:3000/api/twits', {
+        text: twit.text
+      }, {
+        headers: {token: localStorage.token}
+      })
+      .then(response => {
+        console.log(response.data)
+        commit('addNewTwit', response.data)
+      })
+      .catch(err => {
+        console.log(err)
       })
     }
   }

@@ -4,6 +4,7 @@
     {{user.name}}
     <p v-if="is_login">Hello {{user.name}}!</p>
 
+    <twit-form></twit-form>
 
     <div class="ui feed">
       <div class="event" v-for="twit in twits">
@@ -37,9 +38,20 @@
 </template>
 
 <script>
+import TwitForm from './TwitForm'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      twitForm: {
+        text: ''
+      }
+    }
+  },
+  components: {
+    TwitForm
+  },
   computed: mapGetters({
     message: 'getMessage',
     user: 'getUserInfo',
@@ -47,7 +59,9 @@ export default {
     twits: 'getTwits'
   }),
   methods: {
-
+    onTwitFormSubmit(){
+      console.log('onTwitFormSubmit')
+    }
   },
   created() {
   }
