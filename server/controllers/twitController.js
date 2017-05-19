@@ -27,7 +27,18 @@ exports.create = (req, res, next) => {
   newTwit.save( (err, twit) => {
     if(err) res.send(err)
     else {
-      res.send(twit)
+      // res.send(twit)
+
+      Twit.findById(twit._id)
+      .populate("user")
+      .sort({created_at: -1})
+      .exec( (err, t) => {
+        if(err) res.send(err);
+        else{
+          res.send(t);
+        }
+      })
+
     }
   })
 

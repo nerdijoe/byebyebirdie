@@ -39,13 +39,11 @@
 			submitTwitForm() {
 				console.log("submitTwitForm")
 				this.postTwit(this.twitForm)
+				this.clearForm()
 			},
 			clearForm() {
 				this.twitForm.text = ''
-			},
-			onSubmit() {
-        this.$emit('submit', this.twitForm);
-    	}
+			}
 		}
 	}
 </script>

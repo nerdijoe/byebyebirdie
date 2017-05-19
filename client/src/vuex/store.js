@@ -2,7 +2,30 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-Vue.use(Vuex, axios)
+import VueFire from 'vuefire'
+import firebase from 'firebase'
+
+Vue.use(Vuex, axios, VueFire, firebase)
+
+
+var config = {
+  apiKey: "AIzaSyA5qfMCJQY2hNWUfoqrCliwgNtm2nsoLUE",
+  authDomain: "noobijoe.firebaseapp.com",
+  databaseURL: "https://noobijoe.firebaseio.com",
+  projectId: "noobijoe",
+  storageBucket: "noobijoe.appspot.com",
+  messagingSenderId: "252696857462"
+};
+
+var firebaseApp = firebase.initializeApp(config);
+var db = firebaseApp.database()
+
+function writePostData(secretKey, post_id) {
+  firebase.database().ref('twits/' + secretKey).set({
+    twit_id: twit_id
+  });
+  console.log('----> firebase write')
+}
 
 const store = new Vuex.Store({
   state: {
