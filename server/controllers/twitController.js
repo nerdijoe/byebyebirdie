@@ -16,18 +16,32 @@ exports.create = (req, res, next) => {
   var pattern = /(#\w+)/gi;
   var matches = newTwit.text.match(pattern);
   console.log("tags in the text=", matches)
+  
+  if( matches ) {
+    var final_matches = matches.map( m => m.replace(/#/, ''))
+    console.log('strip matches: ', final_matches)
 
-  var final_matches = matches.map( m => m.replace(/#/, ''))
-  console.log('strip matches: ', final_matches)
+    final_matches.map( m => newTwit.tags.push(m) )
 
-  final_matches.map( m => newTwit.tags.push(m) )
+    console.log("newTwit after tags are added: ", newTwit)
 
-  console.log("newTwit after tags are added: ", newTwit)
+  }
 
   newTwit.save( (err, twit) => {
     if(err) res.send(err)
     else {
-      res.send(twit)
+      // res.send(twit)
+
+      Twit.findById(twit._id)
+      .populate("user")
+      .sort({created_at: -1})
+      .exec( (err, t) => {
+        if(err) res.send(err);
+        else{
+          res.send(t);
+        }
+      })
+
     }
   })
 
