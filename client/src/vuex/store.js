@@ -38,7 +38,8 @@ const store = new Vuex.Store({
       username: ''
     },
     is_login: false,
-    twits: []
+    twits: [],
+    tags: []
   },
   getters: {
     getMessage(state) {
@@ -82,6 +83,30 @@ const store = new Vuex.Store({
     },
     addNewTwit(state, data) {
       state.twits.unshift(data)
+    },
+    updateTags(state) {
+      console.log("here")
+      state.twits.map( t => {
+        t.tags.map( tag => {
+          console.log(`*** ${tag}`)
+          if(state.tags.length == 0) {
+            var newTag = { tagname : `${tag}`, count: 1}
+            state.tags.push(newTag)
+          }
+          else {
+            var pos = state.tags.findIndex( t => t.tagname == tag)
+            if(index != -1)
+              state.tags[pos].count++
+            else {
+              var newTag = {tagname: `${tag}`, count: 1}
+              state.tags.push(newTag)
+            }
+
+          }
+        })
+      })
+
+      console.log("updateTags", state.tags)
     }
   }, // end of mutations
   actions: {
@@ -169,6 +194,9 @@ const store = new Vuex.Store({
         firebase.database().ref('twits/'+firebaseSecret).remove();
 
       });
+    },
+    updateTags({commit}) {
+      commit('updateTags')
     }
   }
 
